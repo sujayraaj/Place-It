@@ -35,10 +35,15 @@ export function activate(context: vscode.ExtensionContext) {
 			const { width, height, background, text, textColor, fontFamily, fontSize, fontWeight } = POJO;
 			const placeholderTextEnabled = !!text;
 			const e = placeholderTextEnabled
-				? `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"> <rect x="0" y="0" width="${width}" height="${height}" fill="${background || 'black'}"/> <text x="50%" y="50%" fill="${textColor || 'white'}" font-family="${fontFamily || 'sans-serif'}" font-size="${fontSize || '16px'}" font-weight="${fontWeight || 'regular'}" text-anchor="middle" alignment-baseline="middle">${text}</text> </svg>`
-				: `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"> <rect x="0" y="0" width="${width}" height="${height}" fill="${background || 'black'}"/></svg>`;
-			const image = `<img src="data:image/svg+xml;utf8,${encodeURIComponent(e)}"/>`;
+				? `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"> 
+					<rect x="0" y="0" width="${width}" height="${height}" fill="${background || 'black'}"/> 
+					<text x="50%" y="50%" fill="${textColor || 'white'}" 
+						font-family="${fontFamily || 'sans-serif'}" 
+						font-size="${fontSize || '16px'}" font-weight="${fontWeight || 'regular'}" text-anchor="middle" alignment-baseline="middle">${text}</text> </svg>`
+				: `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg"> 
+					<rect x="0" y="0" width="${width}" height="${height}" fill="${background || 'black'}"/></svg>`;
 
+			const image = `<img src="data:image/svg+xml;utf8,${encodeURIComponent(e)}"/>`;
 
 			editor?.edit(builder => {
 				builder.replace(selection, image);
